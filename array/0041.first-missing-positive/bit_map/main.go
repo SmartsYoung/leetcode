@@ -4,6 +4,27 @@ import (
 	"math"
 )
 
+/**
+给定一个未排序的整数数组，找出其中没有出现的最小的正整数。
+
+示例 1:
+
+输入: [1,2,0]
+输出: 3
+示例 2:
+
+输入: [3,4,-1,1]
+输出: 2
+示例 3:
+
+输入: [7,8,9,11,12]
+输出: 1
+说明:
+
+你的算法的时间复杂度应为O(n)，并且只能使用常数级别的空间。
+
+链接：https://leetcode-cn.com/problems/first-missing-positive
+*/
 func firstMissingPositive(nums []int) int {
 	l := len(nums)
 	contains := 0
@@ -30,9 +51,9 @@ func firstMissingPositive(nums []int) int {
 	for i := 0; i < l; i++ { //以符号的正负 当作hash表
 		index := int(math.Abs(float64(nums[i]))) //获取需要改变的索引
 		if index == l {
-			nums[0] = - int(math.Abs(float64(nums[0])))
+			nums[0] = -int(math.Abs(float64(nums[0])))
 		} else {
-			nums[index] = - int(math.Abs(float64(nums[index])))
+			nums[index] = -int(math.Abs(float64(nums[index])))
 		}
 	}
 
