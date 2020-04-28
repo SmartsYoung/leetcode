@@ -13,7 +13,7 @@ package main
 输出：7 -> 0 -> 8
 原因：342 + 465 = 807
 
- */
+*/
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -45,10 +45,31 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	return l
 }
 
-
-
 /**
 思路：
 1.避免创建新链表，以 l1 or l2 进行更改
 2.其一链表Next指向为空时，开始尝试链表合并
- */
+*/
+
+func addTwoNumbers1(l1 *ListNode, l2 *ListNode) *ListNode {
+	var result *ListNode
+	next := &result
+	num := 0
+	for l1 != nil || l2 != nil || num > 0 {
+		if l1 != nil {
+			num += l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			num += l2.Val
+			l2 = l2.Next
+		}
+		*next = &ListNode{
+			Val:  num % 10,
+			Next: nil,
+		}
+		num = num / 10
+		next = &((*next).Next)
+	}
+	return result
+}

@@ -36,8 +36,12 @@ func permute(nums []int) [][]int {
 }
 func digui(nums []int, num []bool, arr []int, res *[][]int) {
 	if len(arr) == len(nums) {
-		*res = append(*res, append([]int{}, arr...)) //这两语句有什么区别？为什么替换之后有时候结果会出错
+		//*res = append(*res, append([]int{}, arr...)) //这两语句有什么区别？为什么替换之后有时候结果会出错
 		//*res = append(*res, arr)
+		tmp := make([]int, len(arr))
+		copy(tmp, arr)
+		*res = append(*res, tmp)
+
 		return
 	}
 	for i := 0; i < len(nums); i++ {

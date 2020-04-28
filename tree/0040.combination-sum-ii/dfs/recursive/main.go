@@ -47,6 +47,7 @@ func dfs(candidates, nums []int, target, left int, res *[][]int) {
 		tmp := make([]int, len(nums))
 		copy(tmp, nums)
 		*res = append(*res, tmp)
+		*res = append(*res, append([]int{}, nums...))
 		return
 	}
 

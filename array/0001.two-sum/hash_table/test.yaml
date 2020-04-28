@@ -1,0 +1,50 @@
+{
+  "run_type":"client",
+  "local_addr":"127.0.0.1",
+  "local_port":1080,
+  "remote_addr":"tw1-1.sstr-api.xyz",
+  "remote_port":443,
+  "password":[
+    "tNzet383Yz4UEn7SPx"
+  ],
+  "log_level":1,
+  "ssl":{
+    "verify":true,
+    "verify_hostname":true,
+    "cert":"",
+    "cipher":"ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA",
+    "cipher_tls13":"TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384",
+    "sni":"",
+    "alpn":[
+      "h2",
+      "http/1.1"
+    ],
+    "reuse_session":true,
+    "session_ticket":false,
+    "curves":""
+  },
+  "tcp":{
+    "no_delay":true,
+    "keep_alive":true,
+    "reuse_port":false,
+    "fast_open":false,
+    "fast_open_qlen":20
+  }
+}
+
+  istioctl manifest generate \
+  --set values.prometheus.enabled=true \
+  --set components.pilot.enabled=true \
+  --set components.base.enabled=true \
+  --set components.citadel.enabled=true \
+  --set components.galley.enabled=true \
+  --set components.policy.enabled=true \
+  --set components.sidecarInjector.enabled=true \
+  --set components.telemetry.enabled=true \
+  --set values.mixer.adapters.stackdriver.enabled=true \
+  --set values.gateways.enabled=true \
+  --set values.global.mtls.enabled=true \
+  --set values.gateways.istio-ingressgateway.enabled=true \
+  --set values.gateways.istio-ingressgateway.sds.enabled=true \
+  --set values.global.k8sIngress.enabled=true \
+  --set values.global.k8sIngress.enableHttps=true>istio-new.yaml
