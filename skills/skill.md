@@ -28,3 +28,14 @@ for i, j := 1, 10; i < j; i++,j++ {
 
 
 ```
+Goland工具
+
+package path:  相当于设置go build 所在目录
+
+working path: 缓存文件所在目录   一般情况下这两个目录应当设置为相同目录
+
+
+windows系统下使用：
+
+go get github.com/spf13/cobra/cobra
+或者在文件夹github.com/spf13/cobra/cobra下使用go install在$GOPATH/bin路径下生成cobra.exe可执行命令。

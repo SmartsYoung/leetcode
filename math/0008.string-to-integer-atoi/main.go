@@ -1,5 +1,10 @@
 package main
 
+import (
+	"math"
+	"strings"
+)
+
 /**
 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
 
@@ -45,7 +50,7 @@ package main
 解释: 数字 "-91283472332" 超过 32 位有符号整数范围。
      因此返回 INT_MIN (−231) 。
 
- */
+*/
 func myAtoi(str string) int {
 	var n []byte
 	var symbol int
@@ -110,4 +115,32 @@ F:
 /**
 思路：
 1.这题没啥逻辑，暴力堆码,switch的逻辑也可以改成HashMap,
- */
+*/
+
+func myAtoi1(str string) int {
+	//去掉首尾空格
+	str = strings.TrimSpace(str)
+	result := 0
+	sign := 1
+
+	for i, v := range str {
+		if v >= '0' && v <= '9' {
+			result = result*10 + int(v-'0')
+		} else if v == '-' && i == 0 {
+			sign = -1
+		} else if v == '+' && i == 0 {
+			sign = 1
+		} else {
+			break
+		}
+		// 数值最大检测
+		if result > math.MaxInt32 {
+			if sign == -1 {
+				return math.MinInt32
+			}
+			return math.MaxInt32
+		}
+	}
+
+	return sign * result
+}

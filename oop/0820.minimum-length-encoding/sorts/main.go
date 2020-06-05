@@ -58,6 +58,11 @@ func contain(str, substr string) bool {
 
 func minimumLengthEncoding(words []string) int {
 
+	// 可以替换上面的排序函数
+	/*sort.Slice(words, func(i, j int) bool {
+		return len(words[i]) > len(words[j])
+	})*/
+
 	sort.Sort(ByLength(words)) // 实现的是别名ByLength类型的方法，因此通过ByLength调用
 
 	length := len(words)
@@ -77,8 +82,8 @@ func minimumLengthEncoding(words []string) int {
 		for j := i + 1; j < length && hasMap[j] == 0; j++ {
 			substr = words[j]
 			if contain(start, substr) == true {
-				hasMap[j] = -1
-				hasMap[i] += 1
+				hasMap[j] = -1 // 标记后面被包含的字符串
+				hasMap[i] += 1 //  标记包含后面字符串的起始字符串
 			}
 		}
 	}

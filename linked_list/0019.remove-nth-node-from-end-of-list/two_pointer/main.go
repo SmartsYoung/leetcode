@@ -15,7 +15,7 @@ package main
 进阶：
 
 你能尝试使用一趟扫描实现吗？
- */
+*/
 
 type ListNode struct {
 	Val  int
@@ -23,6 +23,45 @@ type ListNode struct {
 }
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	l := 1
+
+	start := head
+
+	for start.Next != nil {
+		l++
+		start = start.Next
+	}
+
+	if n == l && l == 1 {
+		return nil
+	} else if n == l {
+		head = head.Next
+		return head
+	}
+
+	l = l - n - 1
+	ln := 0
+	begin := head
+	res := begin
+	for {
+		if ln == l {
+			break
+		}
+		begin = begin.Next
+		ln++
+	}
+
+	if begin.Next.Next == nil {
+		begin.Next = nil
+		return res
+	} else {
+		begin.Next = begin.Next.Next
+		return res
+	}
+	return res
+}
+
+func removeNthFromEnd1(head *ListNode, n int) *ListNode {
 	zero := &ListNode{
 		Next: head,
 	}
@@ -43,4 +82,4 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 思路:
 1.双指针
 2.头部加入空节点
- */
+*/

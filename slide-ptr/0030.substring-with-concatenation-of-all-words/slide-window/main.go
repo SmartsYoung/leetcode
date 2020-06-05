@@ -1,5 +1,27 @@
 package slide_window
 
+/**
+给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。
+
+注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但不需要考虑 words 中单词串联的顺序。
+
+
+示例 1：
+
+输入：
+  s = "barfoothefoobarman",
+  words = ["foo","bar"]
+输出：[0,9]
+解释：
+从索引 0 和 9 开始的子串分别是 "barfoo" 和 "foobar" 。
+输出的顺序不重要, [9,0] 也是有效答案。
+示例 2：
+
+输入：
+  s = "wordgoodgoodgoodbestword",
+  words = ["word","good","best","word"]
+输出：[]
+*/
 // my answer
 func findSubstring(s string, words []string) []int {
 	var wordMap map[string]int
@@ -117,4 +139,55 @@ func findSubstrings(s string, words []string) []int {
 		}
 	}
 	return result
+}
+
+/**
+思路
+此处需要注意有一些重要条件：
+
+words里的单词长度相同
+寻找的子串是words里单词包含所有可能的拼接顺序
+根据条件，我们可以每次从s中截取固定长度的子串，并判断在这个子串中是否包含了words里所有单词出现的次数（因为顺序不定，只要出现次数相同就可以构造出对应子串）。
+再根据words里的单词长度相同, 我们每次从子串中截取一个单词长度的子串，判断它是否是子串中的单词，这里需要注意匹配到以后应该从这个单词末尾继续匹配，不然会出现单词重叠的情况。
+
+作者：vouv
+链接：https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/solution/chuan-lian-suo-you-dan-ci-de-zi-chuan-by-awlsx/
+*/
+func findSubstring2(s string, words []string) (result []int) {
+	n := len(words)
+	if n == 0 {
+		return
+	}
+	dict := map[string]int{}
+	wn := 0
+	for _, w := range words {
+		dict[w]++
+		wn += len(w)
+	}
+	ns := len(s)
+	for i := 0; i < ns-wn+1; i++ {
+		if findIndexes(s[i:i+wn], len(words[0]), dict) {
+			result = append(result, i)
+		}
+	}
+	return
+}
+
+func findIndexes(s string, wl int, dict map[string]int) bool {
+	ns := len(s)
+	tmp := map[string]int{}
+	for i := 0; i < ns-wl+1; i++ {
+		k := s[i : i+wl]
+		if dict[k] != 0 {
+			tmp[k]++
+			// 从末尾开始继续匹配，防止单词重叠
+			i = i + wl - 1
+		}
+	}
+	for k, v := range dict {
+		if tmp[k] != v {
+			return false
+		}
+	}
+	return true
 }

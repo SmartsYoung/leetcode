@@ -48,6 +48,26 @@ func maxProfit(prices []int) int {
 	return m
 }
 
+func maxProfit2(prices []int) int {
+
+	if len(prices) == 0 || len(prices) == 1 {
+		return 0
+	}
+	stack := make([]int, 0)
+
+	m := 0
+	for i := 0; i < len(prices); i++ {
+		// 无需插入辅助元素
+		for len(stack) > 0 && stack[len(stack)-1] > prices[i] {
+			m = int(math.Max(float64(stack[len(stack)-1]-stack[0]), float64(m)))
+			stack = stack[:len(stack)-1]
+		}
+		stack = append(stack, prices[i])
+	}
+	m = int(math.Max(float64(stack[len(stack)-1]-stack[0]), float64(m)))
+	return m
+}
+
 // dp
 func maxProfit1(prices []int) int {
 	if len(prices) == 0 || len(prices) == 1 {
@@ -72,4 +92,8 @@ func main() {
 	n := []int{1, 2}
 	rs := maxProfit1(n)
 	fmt.Println(rs)
+
+	r := maxProfit1(m)
+	fmt.Println(r)
+
 }

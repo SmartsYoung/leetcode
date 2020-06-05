@@ -22,5 +22,6 @@ func twoSum(nums []int, target int) []int {
 		}
 		hashMap[rawV] = rawK
 	}
+
 	return nil
 }

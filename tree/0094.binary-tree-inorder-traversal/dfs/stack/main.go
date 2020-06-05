@@ -14,10 +14,10 @@ func inorderTraversal(root *TreeNode) []int {
 			stack = append(stack, root)
 			root = root.Left
 		}
-		last := len(stack) - 1
+		last := len(stack) - 1 // 栈顶元素
 		res = append(res, stack[last].Val)
 		root = stack[last].Right
-		stack = stack[:last]
+		stack = stack[:last] // 删除栈顶元素
 	}
 	return res
 }

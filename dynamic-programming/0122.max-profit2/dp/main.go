@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 /**
@@ -62,14 +61,29 @@ func maxProfit1(prices []int) int {
 	if len(prices) == 0 || len(prices) == 1 {
 		return 0
 	}
-	dp := make([]int, len(prices))
-	dp[0] = 0
-	minPrice := prices[0]
+	dp := make([][2]int, len(prices))
+	dp[0][0] = 0 // dp[i][j] j = 0 表示持有现金 1 表示持有股票
+	dp[0][1] = -prices[0]
+
 	for i := 1; i < len(prices); i++ {
-		minPrice = int(math.Min(float64(prices[i]), float64(minPrice)))
-		dp[i] = int(math.Max(float64(dp[i-1]), float64(prices[i]-minPrice)))
+		dp[i][0] = max(dp[i-1][1]+prices[i], dp[i-1][0])
+		dp[i][1] = max(dp[i-1][1], dp[i-1][0]-prices[i])
 	}
-	return dp[len(prices)-1]
+	return dp[len(prices)-1][0]
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func min(a, b int) int {
+	if a > b {
+		return b
+	}
+	return a
 }
 
 func main() {
@@ -81,4 +95,7 @@ func main() {
 	n := []int{1, 2}
 	rs := maxProfit1(n)
 	fmt.Println(rs)
+
+	r := maxProfit1(m)
+	fmt.Println(r)
 }

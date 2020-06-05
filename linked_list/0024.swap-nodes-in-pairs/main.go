@@ -1,22 +1,41 @@
 package main
 
 /**
-合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。
+24. 两两交换链表中的节点        medium
+给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+
+你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
 
 示例:
 
-输入:
-[
-  1->4->5,
-  1->3->4,
-  2->6
-]
-输出: 1->1->2->3->4->4->5->6
- */
+给定 1->2->3->4, 你应该返回 2->1->4->3. */
 
 type ListNode struct {
 	Val  int
 	Next *ListNode
+}
+
+// wrong
+func swapPairs1(head *ListNode) *ListNode {
+
+	empty := &ListNode{}
+	empty.Next = head
+	prev := empty
+
+	for head != nil && head.Next != nil {
+
+		one := head
+		two := head.Next
+
+		two.Next = one
+		one.Next = head.Next.Next // 这里会无限循环，(画图）相当于one.Next = one  two.Next = one 一定不能写在最前面
+		prev.Next = two
+
+		prev = one
+		head = head.Next.Next
+
+	}
+	return empty.Next
 }
 
 func swapPairs(head *ListNode) *ListNode {
@@ -40,4 +59,4 @@ func swapPairs(head *ListNode) *ListNode {
 
 /**
 思路:三指针 prev,one,two
- */
+*/

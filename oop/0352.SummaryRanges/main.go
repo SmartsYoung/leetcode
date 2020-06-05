@@ -41,6 +41,7 @@ func (this *SummaryRanges) AddNum(val int) {
 	pos := 0
 
 	for _, it := range this.res {
+		// 当前要插入的在 it 前面，先插入 it
 		if cur.end+1 < it.start {
 			res = append(res, it)
 			continue

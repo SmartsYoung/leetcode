@@ -1,6 +1,7 @@
 package main
 
 /**
+32  最长有效括号          困难
 给定一个只包含 '(' 和 ')' 的字符串，找出最长的包含有效括号的子串的长度。
 
 示例 1:
@@ -13,7 +14,7 @@ package main
 输入: ")()())"
 输出: 4
 解释: 最长有效括号子串为 "()()"
- */
+*/
 
 func longestValidParentheses(s string) int {
 	var left, right, max int
@@ -51,4 +52,4 @@ func longestValidParentheses(s string) int {
 
 /**
 思路：左右遍历，left right类似栈抵消
- */
+*/

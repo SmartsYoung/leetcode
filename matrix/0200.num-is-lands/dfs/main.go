@@ -1,4 +1,6 @@
-package dfs
+package main
+
+import "fmt"
 
 var dx = [4]int{-1, 0, 1, 0} // 控制遍历方向
 var dy = [4]int{0, -1, 0, 1}
@@ -38,3 +40,16 @@ func numIslands(grid [][]byte) int {
 
 /*作者：elliotxx
 链接：https://leetcode-cn.com/problems/number-of-islands/solution/0msdfs-de-go-shi-xian-by-elliotxx/ */
+func main() {
+
+	matrix := [][]byte{
+		{'1', '1', '1', '1', '0'},
+		{'1', '1', '0', '1', '0'},
+		{'1', '1', '0', '0', '0'},
+		{'0', '0', '0', '0', '0'},
+	}
+	res := numIslands(matrix)
+
+	fmt.Println(res)
+
+}

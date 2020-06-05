@@ -88,7 +88,7 @@ func main() {
 	res := findShortestSubArray(arr)
 	fmt.Println(res)
 	fmt.Println(findShortestSubArray(arr1[:]))
-	fmt.Println(findShortestSubArray([]int{3, 3, 4}))
+	fmt.Println(findShortestSubArray1([]int{3, 3, 4}))
 }
 
 //
@@ -106,7 +106,7 @@ func findShortestSubArray1(nums []int) int {
 			// 因为不知道len，所以这个slice最开始创建要使用len == 1
 			a := make([]int, 1, 1)
 			a[0] = k
-			r[v] = a
+			r[v] = a // r[v] 是个切片，等于 a
 		}
 	}
 

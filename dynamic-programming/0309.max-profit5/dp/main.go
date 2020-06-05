@@ -76,7 +76,7 @@ func maxProfit(prices []int) int {
 	dp[1][0], dp[1][1] = max(0, prices[1]-prices[0]), max(-prices[0], -prices[1])
 
 	for i := 2; i < len(prices); i++ {
-		//第 i 天选择 buy 的时候，要从 i-2 的状态转移，而不是 i-1 。 第 i-1天手上没有股票时第 i 天不一定能买
+		//第 i 天 有股票 的时候，要从 i-2 的状态转移，而不是 i-1 。 第 i-1天手上没有股票时第 i 天不一定能买
 		dp[i][1] = max(dp[i-1][1], dp[i-2][0]-prices[i])
 		dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i])
 	}

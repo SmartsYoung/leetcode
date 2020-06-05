@@ -32,6 +32,50 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// 递归反转以 head 为起点的 n 个节点，返回新的头结点
+func reverseK(head *ListNode, k int) *ListNode {
+	successor := &ListNode{}
+	if k == 1 {
+		// 记录第 n + 1 个节点
+		successor = head.Next
+		return head
+	}
+	// 以 head.next 为起点，需要反转后面的 n - 1 个节点
+	last := reverseK(head.Next, k-1)
+	head.Next.Next = head
+
+	// 让反转之后的 head 节点和后面的节点连起来 只有 k==1时才和后面节点相连，其它情况下在循环开头又重新被赋值为nil
+	head.Next = successor
+
+	return last
+}
+
+func reverseKGroup1(head *ListNode, k int) *ListNode {
+	l := 1
+	start := head
+	for nil != start.Next {
+		start = start.Next
+		l++
+	}
+	if l < k {
+		return head
+	}
+	ti := l / k
+
+	tmp := &ListNode{}
+	res := head
+	tmp = res
+	//nStart = head                //原当前k链表的起点， 新链表中当前k链表的端点
+	//res = reverseK(tmp.Next, k)  // 当前k链表反转之后返回当前k链表的起点
+
+	for i := 0; i < ti; i++ {
+		//	nStart = nextKNode(tmp.Next,k)  //原下一个k链表的起点， 新链表中下一个k链表的端点
+		res = reverseK(res, k)
+	}
+	return tmp
+}
+
+// 非递归
 func reverseKGroup(head *ListNode, k int) *ListNode {
 	empty := &ListNode{}
 	empty.Next = head

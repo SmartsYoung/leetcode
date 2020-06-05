@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 /**
 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
 
@@ -29,7 +31,7 @@ package main
 
 输入: "{[]}"
 输出: true
- */
+*/
 
 func isValid(s string) bool {
 	m := map[rune]rune{
@@ -48,4 +50,9 @@ func isValid(s string) bool {
 		}
 	}
 	return true
+}
+
+func main() {
+	s := "([{}])"
+	fmt.Println(isValid(s))
 }

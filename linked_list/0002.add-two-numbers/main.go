@@ -69,7 +69,7 @@ func addTwoNumbers1(l1 *ListNode, l2 *ListNode) *ListNode {
 			Next: nil,
 		}
 		num = num / 10
-		next = &((*next).Next)
+		next = &(*next).Next
 	}
 	return result
 }

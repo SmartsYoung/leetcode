@@ -7,6 +7,11 @@ func Test(T *testing.T) {
 	reverseKGroup(l1, 2)
 }
 
+func Test_1(T *testing.T) {
+	l1 := fake([]int{1, 2, 3, 4, 5})
+	reverseKGroup1(l1, 2)
+}
+
 func fake(list []int) *ListNode {
 	l := &ListNode{}
 	o := l
