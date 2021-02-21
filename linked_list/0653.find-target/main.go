@@ -47,14 +47,10 @@ func findTarget(root *TreeNode, k int) bool {
 	}
 	m := make(map[int]int, len(num))
 	for _, v := range num {
-		m[v] = v
-	}
-	for _, v := range num {
 		if _, ok := m[k-v]; ok {
-			if k-v != v {
-				return true
-			}
+			return true
 		}
+		m[v] = v
 	}
 	return false
 }
